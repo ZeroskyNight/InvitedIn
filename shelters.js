@@ -225,3 +225,23 @@ function filterMarkers() {
   console.log("Visible markers:", allMarkers.filter(m => m.getMap() !== null).length);
 
 }
+
+    // --- Language Dropdown Logic ---
+
+const languageToggle = document.getElementById('language-toggle');
+const languageMenu = document.getElementById('language-menu');
+
+// 1. Toggle the dropdown when the globe icon is clicked
+languageToggle.addEventListener('click', (event) => {
+    // Prevent the click from immediately closing the menu (see step 2)
+    event.stopPropagation(); 
+    languageMenu.classList.toggle('active');
+});
+
+// 2. Close the dropdown when clicking anywhere else on the page
+document.addEventListener('click', (event) => {
+    // Check if the click occurred outside the menu and the toggle button
+    if (languageMenu.classList.contains('active') && !languageMenu.contains(event.target) && event.target !== languageToggle) {
+        languageMenu.classList.remove('active');
+    }
+});

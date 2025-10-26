@@ -240,90 +240,102 @@
     }
 
     .filter-pill {
-  background: #eee;
-  border: none;
-  border-radius: 20px;
-  padding: 6px 12px;
-  margin: 4px;
-  cursor: pointer;
-  transition: 0.2s;
-}
+      background: #eee;
+      border: none;
+      border-radius: 20px;
+      padding: 6px 12px;
+      margin: 4px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
 
-.filter-pill.active {
-  background: #1a3d5c;
-  color: white;
-}
+    .filter-pill.active {
+      background: #1a3d5c;
+      color: white;
+    }
 
-.header a {
-    text-decoration: none;
-    color: white;
-}
+    .header a {
+      text-decoration: none;
+      color: white;
+    }
 
-.header {
-    /* ... existing flex styles ... */
-    position: relative; /* Essential for positioning the dropdown */
-}
+    .header {
+      /* ... existing flex styles ... */
+      position: relative;
+      /* Essential for positioning the dropdown */
+    }
 
-.language-selector {
-    position: relative;
-}
+    .language-selector {
+      position: relative;
+    }
 
-.language-dropdown {
-    position: absolute;
-    top: 40px; /* Position it below the globe icon (adjust as needed) */
-    right: 0;
-    list-style: none;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 1000;
-    min-width: 150px;
-    padding: 8px 0;
-    display: none; /* Crucial: Start hidden */
-}
+    .language-dropdown {
+      position: absolute;
+      top: 40px;
+      /* Position it below the globe icon (adjust as needed) */
+      right: 0;
+      list-style: none;
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+      min-width: 150px;
+      padding: 8px 0;
+      display: none;
+      /* Crucial: Start hidden */
+    }
 
-.language-dropdown.active {
-    display: block; /* Show when active */
-}
+    .language-dropdown.active {
+      display: block;
+      /* Show when active */
+    }
 
-.language-dropdown li a {
-    text-decoration: none;
-    color: #1a3d5c;
-    display: block;
-    padding: 8px 16px;
-    font-size: 14px;
-    transition: background-color 0.15s;
-}
+    .language-dropdown li a {
+      text-decoration: none;
+      color: #1a3d5c;
+      display: block;
+      padding: 8px 16px;
+      font-size: 14px;
+      transition: background-color 0.15s;
+    }
 
-.language-dropdown li a:hover {
-    background-color: #f0f0f0;
-}
+    .language-dropdown li a:hover {
+      background-color: #f0f0f0;
+    }
 
-/* Ensure the globe icon is easily clickable */
-.globe-icon {
-    cursor: pointer;
-}
-
+    /* Ensure the globe icon is easily clickable */
+    .globe-icon {
+      cursor: pointer;
+    }
   </style>
 </head>
 
 <body>
   <div class="header">
-    <a href="index.html"><h1>Resource Hub</h1></a>
+    <a href="index.html">
+      <h1>Resource Hub</h1>
+    </a>
     <div class="language-selector">
-    <svg class="globe-icon" id="language-toggle" fill="white" viewBox="0 0 24 24">
+      <svg class="globe-icon" id="language-toggle" fill="white" viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="10" stroke="white" stroke-width="2" fill="none" />
         <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
-            stroke="white" stroke-width="2" fill="none" />
-    </svg>
+          stroke="white" stroke-width="2" fill="none" />
+      </svg>
 
-    <ul class="language-dropdown" id="language-menu">
+      <ul class="language-dropdown" id="language-menu">
         <li><a href="?lang=en">English</a></li>
         <li><a href="?lang=es">Español</a></li>
         <li><a href="?lang=fr">Français</a></li>
-    </ul>
-</div>
+        <li><a href="?lang=ar" lang="ar">العربية</a></li>
+        <li><a href="?lang=pa" lang="pa">ਪੰਜਾਬੀ</a></li>
+        <li><a href="?lang=hi" lang="hi">हिंदी</a></li>
+        <li><a href="?lang=tl" lang="tl">Filipino</a></li>
+        <li><a href="?lang=so" lang="so">Soomaali</a></li>
+        <li><a href="?lang=zh" lang="zh">中文</a></li>
+        <li><a href="?lang=fa" lang="fa">فارسی</a></li>
+      </ul>
+    </div>
   </div>
 
   <div class="container">
@@ -457,25 +469,7 @@
       });
     });
 
-    // --- Language Dropdown Logic ---
 
-const languageToggle = document.getElementById('language-toggle');
-const languageMenu = document.getElementById('language-menu');
-
-// 1. Toggle the dropdown when the globe icon is clicked
-languageToggle.addEventListener('click', (event) => {
-    // Prevent the click from immediately closing the menu (see step 2)
-    event.stopPropagation(); 
-    languageMenu.classList.toggle('active');
-});
-
-// 2. Close the dropdown when clicking anywhere else on the page
-document.addEventListener('click', (event) => {
-    // Check if the click occurred outside the menu and the toggle button
-    if (languageMenu.classList.contains('active') && !languageMenu.contains(event.target) && event.target !== languageToggle) {
-        languageMenu.classList.remove('active');
-    }
-});
   </script>
 </body>
 

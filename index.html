@@ -9,11 +9,16 @@
         /* --- General Setup & Typography --- */
         :root {
             /* Primary Colors */
-            --color-primary: #1a3d5c; /* Deep Blue (Header, Button) */
-            --color-accent: #3b82f6; /* Vibrant Blue (Links) */
-            --color-light-blue: #d8e6fa; /* Light Blue (Support Card Background) */
-            --color-emergency-bg: #feebe8; /* Light Pink (Emergency Banner) */
-            --color-emergency-text: #c53030; /* Dark Red (Emergency Text/Icon) */
+            --color-primary: #1a3d5c;
+            /* Deep Blue (Header, Button) */
+            --color-accent: #3b82f6;
+            /* Vibrant Blue (Links) */
+            --color-light-blue: #d8e6fa;
+            /* Light Blue (Support Card Background) */
+            --color-emergency-bg: #feebe8;
+            /* Light Pink (Emergency Banner) */
+            --color-emergency-text: #c53030;
+            /* Dark Red (Emergency Text/Icon) */
             --color-text-dark: #333;
             --color-text-light: #666;
             --color-background: #f5f5f5;
@@ -71,9 +76,9 @@
             height: auto;
             object-fit: cover;
             margin-bottom: 20px;
-            box-shadow: none; 
+            box-shadow: none;
         }
-        
+
         .hero p:first-child {
             font-size: 14px;
             font-weight: 500;
@@ -104,7 +109,8 @@
             flex-direction: column;
             gap: 15px;
             margin-bottom: 30px;
-            border: 1px solid #c0d9f4; /* Subtle border for definition */
+            border: 1px solid #c0d9f4;
+            /* Subtle border for definition */
         }
 
         .support-header {
@@ -150,17 +156,18 @@
             background-color: #122d46;
             transform: translateY(-1px);
         }
-        
+
         /* --- Resource Grid --- */
         .resource-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 15px;
         }
-        
+
         /* Anchor link styling */
         .resource-link {
-            text-decoration: none; /* Remove underline from links */
+            text-decoration: none;
+            /* Remove underline from links */
             color: inherit;
         }
 
@@ -172,7 +179,8 @@
             text-align: center;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
-            display: block; /* Make the whole item clickable */
+            display: block;
+            /* Make the whole item clickable */
         }
 
         .resource-item:hover {
@@ -183,22 +191,40 @@
         .resource-image {
             width: 100%;
             /* Maintain 5:3 aspect ratio visually for the images */
-            padding-top: 60%; 
+            padding-top: 60%;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             border-top-left-radius: 12px;
             border-top-right-radius: 12px;
         }
-        
+
         /* Specific images using relative paths */
         /* Note: Assuming images are in the root or a known path */
-        .img-housing { background-image: url('assets/Claims.png'); } 
-        .img-health { background-image: url('assets/Health.png'); } 
-        .img-legal { background-image: url('assets/Legal.png'); } 
-        .img-iirc { background-image: url('assets/Community.png'); } /* Renamed IIRC to Claims based on file list */
-        .img-food { background-image: url('assets/Food.png'); } 
-        .img-education { background-image: url('assets/Education.png'); }
+        .img-housing {
+            background-image: url('assets/Claims.png');
+        }
+
+        .img-health {
+            background-image: url('assets/Health.png');
+        }
+
+        .img-legal {
+            background-image: url('assets/Legal.png');
+        }
+
+        .img-iirc {
+            background-image: url('assets/Community.png');
+        }
+
+        /* Renamed IIRC to Claims based on file list */
+        .img-food {
+            background-image: url('assets/Food.png');
+        }
+
+        .img-education {
+            background-image: url('assets/Education.png');
+        }
 
 
         .resource-label {
@@ -207,7 +233,7 @@
             font-weight: 500;
             color: var(--color-text-dark);
             /* Add some visual separation from the image */
-            border-top: 1px solid #f0f0f0; 
+            border-top: 1px solid #f0f0f0;
         }
 
         /* --- Emergency Banner --- */
@@ -247,9 +273,59 @@
             text-decoration: none;
             transition: text-decoration 0.2s;
         }
-        
+
         .emergency-content a:hover {
             text-decoration: underline;
+        }
+
+        .header {
+            /* ... existing flex styles ... */
+            position: relative;
+            /* Essential for positioning the dropdown */
+        }
+
+        .language-selector {
+            position: relative;
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 40px;
+            /* Position it below the globe icon (adjust as needed) */
+            right: 0;
+            list-style: none;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            min-width: 150px;
+            padding: 8px 0;
+            display: none;
+            /* Crucial: Start hidden */
+        }
+
+        .language-dropdown.active {
+            display: block;
+            /* Show when active */
+        }
+
+        .language-dropdown li a {
+            text-decoration: none;
+            color: #1a3d5c;
+            display: block;
+            padding: 8px 16px;
+            font-size: 14px;
+            transition: background-color 0.15s;
+        }
+
+        .language-dropdown li a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Ensure the globe icon is easily clickable */
+        .globe-icon {
+            cursor: pointer;
         }
 
         /* --- Media Queries for Layout Adaptation (Mobile First) --- */
@@ -258,21 +334,22 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-        
+
         @media (min-width: 800px) {
             .resource-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
+
             .support-card {
                 flex-direction: row;
                 justify-content: space-between;
                 align-items: center;
             }
+
             .support-header {
                 flex-grow: 1;
             }
         }
-
     </style>
 </head>
 
@@ -281,10 +358,27 @@
     <div class="header">
         <h1>Invited In</h1>
         <!-- Globe SVG Icon -->
-        <svg class="globe-icon" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
-            <circle cx="12" cy="12" r="10" />
-            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-        </svg>
+        <div class="language-selector">
+            <svg class="globe-icon" id="language-toggle" fill="white" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" stroke="white" stroke-width="2" fill="none" />
+                <path
+                    d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                    stroke="white" stroke-width="2" fill="none" />
+            </svg>
+
+            <ul class="language-dropdown" id="language-menu">
+                <li><a href="?lang=en">English</a></li>
+                <li><a href="?lang=es">Español</a></li>
+                <li><a href="?lang=fr">Français</a></li>
+                <li><a href="?lang=ar" lang="ar">العربية</a></li>
+                <li><a href="?lang=pa" lang="pa">ਪੰਜਾਬੀ</a></li>
+                <li><a href="?lang=hi" lang="hi">हिंदी</a></li>
+                <li><a href="?lang=tl" lang="tl">Filipino</a></li>
+                <li><a href="?lang=so" lang="so">Soomaali</a></li>
+                <li><a href="?lang=zh" lang="zh">中文</a></li>
+                <li><a href="?lang=fa" lang="fa">فارسی</a></li>
+            </ul>
+        </div>
     </div>
 
     <div class="container">
@@ -292,7 +386,7 @@
         <div class="hero">
             <!-- Hero.jpg -->
             <img src="assets/Hero.png" alt="Illustration of hands holding people in a circle" class="hero-image">
-            
+
             <p>WELCOME TO</p>
             <h2>Invited In</h2>
             <p>Your first step to flourishing in this new land 🇨🇦</p>
@@ -303,7 +397,8 @@
             <div class="support-header">
                 <!-- Group Icon SVG -->
                 <svg class="support-icon-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" />
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M17 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" />
                     <circle cx="10" cy="8" r="4" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 20v-2a4 4 0 0 0-3-3.87" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="M16 3.13a4 4 0 0 1 0 7.74" />
@@ -319,7 +414,7 @@
 
         <!-- Resource Grid -->
         <div class="resource-grid">
-            
+
             <!-- Housing (Image 5) -->
             <a href="housing.html" class="resource-link">
                 <div class="resource-item">
@@ -331,11 +426,12 @@
             <!-- Health & Wellbeing (Image 6) -->
             <a href="health.html" class="resource-link">
                 <div class="resource-item">
-                    <div class="resource-image img-health" role="img" aria-label="Health & Wellbeing Illustration"></div>
+                    <div class="resource-image img-health" role="img" aria-label="Health & Wellbeing Illustration">
+                    </div>
                     <div class="resource-label">Health & Wellbeing</div>
                 </div>
             </a>
-            
+
             <!-- Legal Aid (Image 4) -->
             <a href="legal.html" class="resource-link">
                 <div class="resource-item">
@@ -374,7 +470,8 @@
         <div class="emergency-banner">
             <!-- Warning Icon SVG -->
             <svg class="emergency-icon-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.026 3.325 1.776 3.325h13.148c1.75 0 2.642-1.825 1.776-3.325L13.732 4.17c-.866-1.5-3.036-1.5-3.902 0L2.697 16.502zM12 15.75h.007" />
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 9v3.75m-9.303 3.376c-.866 1.5.026 3.325 1.776 3.325h13.148c1.75 0 2.642-1.825 1.776-3.325L13.732 4.17c-.866-1.5-3.036-1.5-3.902 0L2.697 16.502zM12 15.75h.007" />
             </svg>
             <div class="emergency-content">
                 <h3>Emergency Support</h3>
@@ -382,7 +479,7 @@
             </div>
         </div>
     </div>
-
+<script src="shelters.js"></script>
 </body>
 
 </html>
