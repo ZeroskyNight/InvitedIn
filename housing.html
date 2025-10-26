@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resource Hub - Housing</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    .header {
+      background-color: #1a3d5c;
+      color: white;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header h1 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .globe-icon {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a3d5c;
+      margin-bottom: 20px;
+    }
+
+    .search-box {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 12px 40px 12px 16px;
+      border: 1px solid #d0d0d0;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .search-box input:focus {
+      border-color: #3b82f6;
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #666;
+    }
+
+    .filter-pills {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .pill {
+      padding: 8px 20px;
+      border-radius: 20px;
+      border: 1px solid #d0d0d0;
+      background: white;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .pill:hover {
+      background: #f0f0f0;
+    }
+
+    .pill.active {
+      background: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+    }
+
+    .add-filter {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid #d0d0d0;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 20px;
+      color: #3b82f6;
+    }
+
+    .tabs {
+      display: flex;
+      border-bottom: 2px solid #e0e0e0;
+      margin-bottom: 20px;
+    }
+
+    .tab {
+      padding: 12px 24px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      color: #666;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.2s;
+    }
+
+    .tab:hover {
+      color: #1a3d5c;
+    }
+
+    .tab.active {
+      color: #1a3d5c;
+      border-bottom-color: #1a3d5c;
+    }
+
+    .content {
+      display: none;
+    }
+
+    .content.active {
+      display: block;
+    }
+
+    .shelter-card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .shelter-card h3 {
+      font-size: 18px;
+      color: #1a3d5c;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .shelter-card p {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .shelter-info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .info-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #1a3d5c;
+    }
+
+    .info-icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    .shelter-link {
+      color: #3b82f6;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+
+    .shelter-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      padding: 6px 16px;
+      border-radius: 16px;
+      background: #e8f0ff;
+      color: #3b82f6;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    #map-container {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    #map {
+      height: 500px;
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .map-subtitle {
+      color: #1a3d5c;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .filter-pill {
+  background: #eee;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 12px;
+  margin: 4px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.filter-pill.active {
+  background: #1a3d5c;
+  color: white;
+}
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <h1>Resource Hub</h1>
+    <svg class="globe-icon" fill="white" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10" stroke="white" stroke-width="2" fill="none" />
+      <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+        stroke="white" stroke-width="2" fill="none" />
+    </svg>
+  </div>
+
+  <div class="container">
+    <h2 class="page-title">Shelters</h2>
+
+    <div class="search-box">
+      <input type="text" placeholder="Search resources...">
+      <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
+    </div>
+
+    <div id="filter-pills">
+      <button class="filter-pill active" data-category="men">Men</button>
+      <button class="filter-pill active" data-category="women">Women</button>
+      <button class="filter-pill active" data-category="family">Family</button>
+      <button class="filter-pill active" data-category="mixed">Mixed</button>
+      <button class="filter-pill active" data-category="youth">Youth</button>
+    </div>
+
+
+    <div class="tabs">
+      <div class="tab" data-tab="list">List</div>
+      <div class="tab active" data-tab="map">Map</div>
+    </div>
+
+    <!-- <div class="content" id="list-content">
+      <div class="shelter-card">
+        <h3>New Beginnings Housing</h3>
+        <p>Transitional housing program for refugee claimants seeking long-term accommodation</p>
+        <div class="shelter-info">
+          <div class="info-row">
+            <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="#1a3d5c" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span>123 Main Street, Toronto, ON M5V 2T6</span>
+          </div>
+          <div class="info-row">
+            <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="#1a3d5c" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>416 555-0100</span>
+          </div>
+          <div class="info-row">
+            <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="#1a3d5c" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span>24/7</span>
+          </div>
+        </div>
+        <a href="#" class="shelter-link">Newbeginnings.com</a>
+        <div class="shelter-tags">
+          <span class="tag">24/7</span>
+          <span class="tag">Men</span>
+        </div>
+      </div>
+
+      <div class="shelter-card">
+        <h3>New Beginnings Housing</h3>
+        <p>Transitional housing program for refugee claimants seeking long-term accommodation</p>
+        <div class="shelter-info">
+          <div class="info-row">
+            <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="#1a3d5c" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span>123 Main Street, Toronto, ON M5V 2T6</span>
+          </div>
+          <div class="info-row">
+            <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="#1a3d5c" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>416 555-0100</span>
+          </div>
+          <div class="info-row">
+            <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="#1a3d5c" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span>24/7</span>
+          </div>
+        </div>
+        <a href="#" class="shelter-link">Newbeginnings.com</a>
+        <div class="shelter-tags">
+          <span class="tag">24/7</span>
+          <span class="tag">Families</span>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="content" id="list-content"></div>
+
+
+    <div class="content active" id="map-content">
+      <div id="map-container">
+        <p class="map-subtitle">Search for a shelter by map</p>
+        <div id="map"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjAK2rwpQow30cHTwiMm8cJGLCubPsHBs&callback=initMap"
+    async defer></script>
+  <script src="shelters.js"></script>
+
+  <script>
+    // Tab switching
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetTab = tab.dataset.tab;
+
+        // Update active tab
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        // Update content
+        document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+        document.getElementById(targetTab + '-content').classList.add('active');
+      });
+    });
+
+    // Filter pills
+    document.querySelectorAll('.pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        pill.classList.toggle('active');
+        // Add your filter logic here
+      });
+    });
+  </script>
+</body>
+
+</html>
